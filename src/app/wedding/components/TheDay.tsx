@@ -58,7 +58,7 @@ export default function TheDay() {
     <section
       id="the-day"
       className="section-day relative py-24 lg:py-40 px-6 overflow-hidden"
-      aria-label="Wedding day details">
+      aria-label="Birthday day details">
       
       {/* Background ochre wash */}
       <div
