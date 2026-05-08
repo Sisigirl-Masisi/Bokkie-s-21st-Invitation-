@@ -1,0 +1,453 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap');
+
+:root {
+  --blush:        #F2C4C4;
+  --blush-deep:   #E8A598;
+  --blush-light:  #FAE8E8;
+  --sage:         #8FAF8A;
+  --sage-deep:    #6B9465;
+  --sage-light:   #C8DCC5;
+  --ochre:        #D4A853;
+  --ochre-deep:   #C8943A;
+  --ochre-light:  #EDD89A;
+  --cream:        #FAF6F0;
+  --cream-warm:   #F5EDE0;
+  --cream-deep:   #EDE0CE;
+  --ink:          #2C2118;
+  --ink-soft:     #5C4A38;
+  --ink-faint:    #9C8A78;
+  --paper:        #FAF6F0;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── WATERCOLOR PAPER TEXTURE ─── */
+.paper-texture::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23paper)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.6;
+  mix-blend-mode: multiply;
+}
+
+/* ─── FONTS ─── */
+.font-display { font-family: var(--font-display); }
+.font-body    { font-family: var(--font-body); }
+
+/* ─── COLOR BLEED HERO ANIMATION ─── */
+@keyframes bleedBlush {
+  0%   { transform: translate(-20%, -30%) scale(0.6); opacity: 0; }
+  100% { transform: translate(0%, 0%) scale(1); opacity: 0.65; }
+}
+@keyframes bleedSage {
+  0%   { transform: translate(20%, 20%) scale(0.5); opacity: 0; }
+  100% { transform: translate(0%, 0%) scale(1); opacity: 0.55; }
+}
+@keyframes bleedOchre {
+  0%   { transform: translate(10%, -20%) scale(0.4); opacity: 0; }
+  100% { transform: translate(0%, 0%) scale(1); opacity: 0.45; }
+}
+
+.bleed-blush {
+  animation: bleedBlush 3.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+.bleed-sage {
+  animation: bleedSage 4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s both;
+}
+.bleed-ochre {
+  animation: bleedOchre 3.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s both;
+}
+
+/* ─── NAME BLEED TYPOGRAPHY ─── */
+@keyframes nameBleed {
+  0%   { opacity: 0; filter: blur(12px); letter-spacing: 0.3em; }
+  60%  { opacity: 0.7; filter: blur(3px); }
+  100% { opacity: 1; filter: blur(0px); letter-spacing: 0.05em; }
+}
+@keyframes nameBleedSub {
+  0%   { opacity: 0; transform: translateY(16px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.name-bleed-1 {
+  animation: nameBleed 2.8s cubic-bezier(0.16, 1, 0.3, 1) 1s both;
+}
+.name-bleed-2 {
+  animation: nameBleed 2.8s cubic-bezier(0.16, 1, 0.3, 1) 1.4s both;
+}
+.hero-sub {
+  animation: nameBleedSub 1.6s cubic-bezier(0.16, 1, 0.3, 1) 2.4s both;
+}
+.hero-cta {
+  animation: nameBleedSub 1.4s cubic-bezier(0.16, 1, 0.3, 1) 2.8s both;
+}
+
+/* ─── WATERCOLOR BLOOM REVEAL ─── */
+@keyframes bloomIn {
+  0%   { clip-path: circle(0% at 50% 50%); opacity: 0; }
+  60%  { opacity: 1; }
+  100% { clip-path: circle(150% at 50% 50%); opacity: 1; }
+}
+@keyframes fadeUpSoft {
+  0%   { opacity: 0; transform: translateY(30px); filter: blur(4px); }
+  100% { opacity: 1; transform: translateY(0);  filter: blur(0px); }
+}
+
+.bloom-reveal {
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+.bloom-reveal.bloomed {
+  animation: bloomIn 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  filter: blur(4px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* ─── BRUSHSTROKE DIVIDER ─── */
+.brushstroke-divider {
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--blush) 15%,
+    var(--sage) 40%,
+    var(--ochre) 65%,
+    var(--blush-deep) 85%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  opacity: 0.6;
+  position: relative;
+}
+.brushstroke-divider::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ochre-light), transparent);
+  opacity: 0.4;
+}
+
+/* ─── INK BLEED TEXT ─── */
+.ink-bleed {
+  text-shadow:
+    0 0 40px rgba(242, 196, 196, 0.5),
+    0 0 80px rgba(143, 175, 138, 0.2);
+  position: relative;
+}
+
+/* ─── WATERCOLOR CARD ─── */
+.wc-card {
+  background: rgba(250, 246, 240, 0.7);
+  border: 1px solid rgba(212, 168, 83, 0.15);
+  backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+}
+.wc-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(242,196,196,0.08) 0%, rgba(143,175,138,0.06) 50%, rgba(212,168,83,0.05) 100%);
+  pointer-events: none;
+}
+
+/* ─── ORGANIC BLOB SHAPES ─── */
+@keyframes blobFloat {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: translate(0,0) scale(1); }
+  33%       { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: translate(10px,-15px) scale(1.03); }
+  66%       { border-radius: 70% 30% 50% 60% / 30% 70% 50% 60%; transform: translate(-8px, 8px) scale(0.98); }
+}
+.blob-float {
+  animation: blobFloat 12s ease-in-out infinite;
+}
+.blob-float-2 {
+  animation: blobFloat 15s ease-in-out 3s infinite reverse;
+}
+.blob-float-3 {
+  animation: blobFloat 18s ease-in-out 6s infinite;
+}
+
+/* ─── FLOWER BLOOM CONFIRMATION ─── */
+@keyframes petalBloom {
+  0%   { transform: scale(0) rotate(-20deg); opacity: 0; }
+  60%  { transform: scale(1.15) rotate(5deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+@keyframes centerBloom {
+  0%   { transform: scale(0); opacity: 0; }
+  70%  { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.petal { animation: petalBloom 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+.petal:nth-child(1)  { animation-delay: 0.1s; }
+.petal:nth-child(2)  { animation-delay: 0.2s; }
+.petal:nth-child(3)  { animation-delay: 0.3s; }
+.petal:nth-child(4)  { animation-delay: 0.4s; }
+.petal:nth-child(5)  { animation-delay: 0.5s; }
+.petal:nth-child(6)  { animation-delay: 0.6s; }
+.petal:nth-child(7)  { animation-delay: 0.15s; }
+.petal:nth-child(8)  { animation-delay: 0.25s; }
+.flower-center { animation: centerBloom 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.7s both; }
+
+/* ─── SECTION WARM PROGRESSION ─── */
+.section-hero    { background-color: #FAF6F0; }
+.section-story   { background-color: #F8F2E8; }
+.section-day     { background-color: #F5EDE0; }
+.section-palette { background-color: #F2E6D4; }
+.section-rsvp    { background-color: #EFE0CA; }
+
+/* ─── FORM INPUTS ─── */
+.wc-input {
+  background: rgba(250, 246, 240, 0.8);
+  border: 1px solid rgba(143, 175, 138, 0.4);
+  border-radius: 2px;
+  padding: 12px 16px;
+  font-family: var(--font-body);
+  color: var(--ink);
+  width: 100%;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+  font-size: 15px;
+}
+.wc-input:focus {
+  border-color: var(--sage);
+  box-shadow: 0 0 0 3px rgba(143, 175, 138, 0.15);
+}
+.wc-input::placeholder {
+  color: var(--ink-faint);
+  font-style: italic;
+}
+
+/* ─── WATERCOLOR BUTTON ─── */
+.wc-btn-primary {
+  position: relative;
+  background: linear-gradient(135deg, var(--blush-deep), var(--ochre));
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  padding: 16px 40px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease;
+}
+.wc-btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--blush), var(--ochre-light));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.wc-btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(212, 168, 83, 0.3);
+}
+.wc-btn-primary:hover::before { opacity: 1; }
+.wc-btn-primary span { position: relative; z-index: 1; }
+
+.wc-btn-secondary {
+  background: transparent;
+  color: var(--ink-soft);
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  border: 1px solid rgba(92, 74, 56, 0.25);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.wc-btn-secondary:hover {
+  border-color: var(--sage);
+  color: var(--sage-deep);
+  background: rgba(143, 175, 138, 0.08);
+}
+
+/* ─── PARALLAX ─── */
+.parallax-slow { will-change: transform; }
+
+/* ─── MARQUEE ─── */
+@keyframes marqueeScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-inner {
+  animation: marqueeScroll 28s linear infinite;
+  white-space: nowrap;
+}
+
+/* ─── SECTION LINE REVEAL ─── */
+.section-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ochre), var(--blush), transparent);
+  width: 0;
+  transition: width 1.8s cubic-bezier(0.77, 0, 0.175, 1);
+  opacity: 0.5;
+}
+.section-line.active { width: 100%; }
+
+/* ─── RADIO ATTENDANCE ─── */
+.attend-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border: 1px solid rgba(143, 175, 138, 0.3);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+.attend-option:hover,
+.attend-option.selected {
+  background: rgba(143, 175, 138, 0.12);
+  border-color: var(--sage);
+  color: var(--ink);
+}
+.attend-option.selected .attend-dot {
+  background: var(--sage-deep);
+  box-shadow: 0 0 0 3px rgba(143, 175, 138, 0.3);
+}
+.attend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(143, 175, 138, 0.3);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+/* ─── WATERCOLOR WASH TRANSITION ─── */
+@keyframes washReveal {
+  0%   { opacity: 0; transform: scale(0.96); filter: blur(6px) saturate(0); }
+  100% { opacity: 1; transform: scale(1);    filter: blur(0)   saturate(1); }
+}
+.wash-reveal {
+  opacity: 0;
+  transition: none;
+}
+.wash-reveal.washed {
+  animation: washReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ─── DETAIL TAGS ─── */
+.detail-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding: 4px 12px;
+  border: 1px solid rgba(212, 168, 83, 0.25);
+  border-radius: 1px;
+}
+
+/* ─── JOURNAL ENTRY STYLE ─── */
+.journal-entry {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--ink-soft);
+}
+.journal-entry .journal-cap {
+  float: left;
+  font-size: 5rem;
+  line-height: 0.75;
+  margin: 0.12em 0.08em 0 0;
+  color: var(--blush-deep);
+  font-style: normal;
+  font-weight: 400;
+}
+
+/* ─── SCROLL INDICATOR ─── */
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50%       { transform: translateY(8px); opacity: 1; }
+}
+.scroll-indicator { animation: scrollBounce 2s ease-in-out infinite; }
+
+/* ─── PALETTE SWATCH ─── */
+.swatch {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  position: relative;
+  flex-shrink: 0;
+}
+.swatch::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: rgba(250,246,240,0.3);
+}
+
+/* ─── STAGGER DELAYS ─── */
+.delay-100 { transition-delay: 0.1s; }
+.delay-200 { transition-delay: 0.2s; }
+.delay-300 { transition-delay: 0.3s; }
+.delay-400 { transition-delay: 0.4s; }
+.delay-500 { transition-delay: 0.5s; }
+.delay-600 { transition-delay: 0.6s; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .journal-entry .journal-cap {
+    font-size: 3.5rem;
+  }
+}
