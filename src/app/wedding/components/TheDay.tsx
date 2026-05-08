@@ -147,7 +147,7 @@ export default function TheDay() {
               }}>
               
               <AppImage
-                src="/assets/images/venue.jpg"
+                src="https://lh3.googleusercontent.com/p/AF1QipNaNjJNjKiWIJvLBl2KTDEg-T3YjiP1rnxpy-XP=w243-h174-n-k-no-nu"
                 alt="Le Vaal Manor, your perfect escape on the prestigious Parys Golf and Country Estate"
                 width={600}
                 height={500}
